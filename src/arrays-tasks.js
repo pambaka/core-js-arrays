@@ -20,8 +20,21 @@
  *    getIntervalArray(0, 100) => [ 0, 1, 2, ..., 100 ]
  *    getIntervalArray(3, 3) => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  let newArray = [];
+
+  const length = end - start + 1;
+
+  if (length > 0) {
+    newArray.length = length;
+
+    // newArray.fill(start, 0, newArray.length);
+    // newArray = newArray.map((value, index) => value + index);
+
+    newArray = Array.from(newArray, (value, index) => start + index);
+  }
+
+  return newArray;
 }
 
 /**
@@ -37,8 +50,31 @@ function getIntervalArray(/* start, end */) {
  *    sumArrays([10, 20, 30], [5, 10, 15]) => [15, 30, 45]
  *    sumArrays([-1, 0, 1], [1, 2, 3, 4]) => [0, 2, 4, 4]
  */
-function sumArrays(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function sumArrays(arr1, arr2) {
+  let shortArray;
+  let longArray;
+
+  if (arr1.length >= arr2.length) {
+    shortArray = arr2;
+    longArray = arr1;
+  } else {
+    shortArray = arr1;
+    longArray = arr2;
+  }
+
+  const newArray = longArray.map((value, index) => {
+    let sum;
+
+    if (shortArray[index]) {
+      sum = value + shortArray[index];
+    } else {
+      sum = value;
+    }
+
+    return sum;
+  });
+
+  return newArray;
 }
 
 /**
@@ -53,8 +89,8 @@ function sumArrays(/* arr1, arr2 */) {
  *    findElement(['Array', 'Number', 'string'], 'Date') => -1
  *    findElement([0, 1, 2, 3, 4, 5], 5) => 5
  */
-function findElement(/* arr, value */) {
-  throw new Error('Not implemented');
+function findElement(arr, value) {
+  return arr.indexOf(value);
 }
 
 /**
@@ -71,8 +107,10 @@ function findElement(/* arr, value */) {
  *    findAllOccurrences([ null, undefined, null ], null) => 2
  *    findAllOccurrences([ true, 0, 1, 'true' ], true) => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  const filteredArray = arr.filter((value) => value === item);
+
+  return filteredArray.length;
 }
 
 /**
@@ -87,8 +125,9 @@ function findAllOccurrences(/* arr, item */) {
  *    removeFalsyValues([ 1, 2, 3, 4, 5, 'false' ]) => [ 1, 2, 3, 4, 5, 'false' ]
  *    removeFalsyValues([ false, 0, NaN, '', undefined ]) => [ ]
  */
-function removeFalsyValues(/* arr */) {
-  throw new Error('Not implemented');
+function removeFalsyValues(arr) {
+  const filteredArray = arr.filter((value) => Boolean(value) === true);
+  return filteredArray;
 }
 
 /**
@@ -101,8 +140,10 @@ function removeFalsyValues(/* arr */) {
  *    getStringsLength([ '', 'a', 'bc', 'def', 'ghij' ]) => [ 0, 1, 2, 3, 4 ]
  *    getStringsLength([ 'angular', 'react', 'ember' ]) => [ 7, 5, 5 ]
  */
-function getStringsLength(/* arr */) {
-  throw new Error('Not implemented');
+function getStringsLength(arr) {
+  const filteredArray = arr.map((value) => value.length);
+
+  return filteredArray;
 }
 
 /**
@@ -119,8 +160,11 @@ function getStringsLength(/* arr */) {
  *   getAverage([ 1, 10, 100, 1000 ])  => 277,75
  *   getAverage([ 2, 3, 3 ])  => 2,67
  */
-function getAverage(/* arr */) {
-  throw new Error('Not implemented');
+function getAverage(arr) {
+  let average = arr.reduce((acc, value) => acc + value / arr.length, 0);
+  average = Number(average).toFixed(2);
+
+  return Number(average);
 }
 
 /**
@@ -133,8 +177,8 @@ function getAverage(/* arr */) {
  *    isSameLength(['orange', 'banana', 'cherry']) => true
  *    isSameLength(['cat', 'dog', 'elephant']) => false
  */
-function isSameLength(/* arr */) {
-  throw new Error('Not implemented');
+function isSameLength(arr) {
+  return arr.every((value) => value.length === arr[0].length);
 }
 
 /**
@@ -148,8 +192,8 @@ function isSameLength(/* arr */) {
  *    isValueEqualsIndex([2, 1, 0, 4, 5]) => true
  *    isValueEqualsIndex([10, 20, 30, 40, 50]) => false
  */
-function isValueEqualsIndex(/* arr */) {
-  throw new Error('Not implemented');
+function isValueEqualsIndex(arr) {
+  return arr.some((value, index) => value === index);
 }
 
 /**
