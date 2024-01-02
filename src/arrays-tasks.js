@@ -374,8 +374,10 @@ function flattenArray(nestedArray) {
  *   selectMany([[1, 2], [3, 4], [5, 6]], (x) => x) =>   [ 1, 2, 3, 4, 5, 6 ]
  *   selectMany(['one','two','three'], (x) => x.split('')) =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const newArr = arr.flatMap(childrenSelector);
+
+  return newArr;
 }
 
 /**
@@ -391,8 +393,10 @@ function selectMany(/* arr, childrenSelector */) {
  *   calculateBalance([ [ 10, 8 ], [ 1, 5 ] ])  => (10 - 8) + (1 - 5) = 2 + -4 = -2
  *   calculateBalance([]) => 0
  */
-function calculateBalance(/* arr */) {
-  throw new Error('Not implemented');
+function calculateBalance(arr) {
+  const balance = arr.reduce((acc, value) => acc + value[0] - value[1], 0);
+
+  return balance;
 }
 
 /**
@@ -407,8 +411,26 @@ function calculateBalance(/* arr */) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  let index = 0;
+  const newArr = [];
+
+  function pushElement(startIndex) {
+    if (arr.length - startIndex > chunkSize) {
+      newArr.push(arr.slice(startIndex, startIndex + chunkSize));
+
+      index += chunkSize;
+      pushElement(index);
+    }
+
+    return newArr;
+  }
+
+  pushElement(index);
+
+  newArr.push(arr.slice(index, arr.length)); // last element
+
+  return newArr;
 }
 
 /**
@@ -423,8 +445,16 @@ function createChunks(/* arr, chunkSize */) {
  *    generateOdds(2) => [ 1, 3 ]
  *    generateOdds(5) => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
+function generateOdds(len) {
+  let oddsArr = [];
+  oddsArr.length = len;
+
+  // oddsArr.fill(0, 0, len);
+  // oddsArr = oddsArr.map((value, index) => index * 2 + 1);
+
+  oddsArr = Array.from(oddsArr, (value, index) => index * 2 + 1);
+
+  return oddsArr;
 }
 
 /**
@@ -439,8 +469,19 @@ function generateOdds(/* len */) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  let newArr = arr;
+  let slicedIndices = indices;
+
+  if (slicedIndices.length > 1) {
+    newArr = newArr.at(slicedIndices[0]);
+    slicedIndices = slicedIndices.slice(1);
+
+    return getElementByIndices(newArr, slicedIndices);
+  }
+  newArr = newArr.at(indices[0]);
+
+  return newArr;
 }
 
 /**
@@ -455,8 +496,10 @@ function getElementByIndices(/* arr, indices */) {
  *  getFalsyValuesCount([ -1, 'false', null, 0 ]) => 2
  *  getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]) => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  const filteredArr = arr.filter((value) => Boolean(value) === false);
+
+  return filteredArr.length;
 }
 
 /**
