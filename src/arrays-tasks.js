@@ -520,8 +520,23 @@ function getFalsyValuesCount(arr) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  let matrix = [];
+  matrix.length = n;
+  matrix.fill(0);
+
+  matrix = matrix.map((value, index) => {
+    const matrixElement = [];
+    matrixElement.length = n;
+
+    matrixElement.fill(0, 0, index);
+    matrixElement.fill(1, index, index + 1);
+    matrixElement.fill(0, index + 1);
+
+    return matrixElement;
+  });
+
+  return matrix;
 }
 
 /**
@@ -620,8 +635,23 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  let counter = 1;
+  let maxCounter = 1;
+
+  nums.reduce((acc, value) => {
+    if (acc < value) {
+      counter += 1;
+    } else {
+      counter = 1;
+    }
+
+    maxCounter = Math.max(maxCounter, counter);
+
+    return value;
+  });
+
+  return maxCounter;
 }
 
 /**
@@ -729,8 +759,22 @@ function sortDigitNamesByNumericOrder(arr) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const min = Math.floor(arr.length / 2);
+  const max = Math.ceil(arr.length / 2);
+  const headArr = arr.slice(0, min);
+  const tailArr = arr.slice(max);
+  const middleArr = arr.slice(min, max);
+
+  let newArr;
+
+  if (min === max) {
+    newArr = tailArr.concat(headArr);
+  } else {
+    newArr = tailArr.concat(middleArr).concat(headArr);
+  }
+
+  return newArr;
 }
 
 module.exports = {
